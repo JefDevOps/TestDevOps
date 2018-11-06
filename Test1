@@ -1,0 +1,82 @@
+package com.test;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.List;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+
+import com.test.Cobol85Parser.DataDescriptionEntryContext;
+import com.test.Cobol85Parser.ParagraphContext;
+import com.test.Cobol85Parser.ProcedureDivisionUsingParameterContext;
+import com.test.Cobol85Parser.SentenceContext;
+import com.test.Cobol85Parser.StatementContext;
+
+public class test {
+	
+    public static void main(String[] args) throws Exception {
+    	
+    	InputStream inputStream = new FileInputStream("C:\\Users\\FORMATION-3\\test2.cbl");
+        ANTLRInputStream input = new ANTLRInputStream(inputStream);
+
+        // create a CharStream that reads from standard input
+        //ANTLRInputStream input = new ANTLRInputStream(System.in);
+
+        // create a lexer that feeds off of input CharStream
+        Cobol85Lexer lexer = new Cobol85Lexer(input);
+
+        // create a buffer of tokens pulled from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // create a parser that feeds off the tokens buffer
+        Cobol85Parser parser = new Cobol85Parser(tokens);
+                                           
+        
+        List<ParagraphContext> tree =  parser.programUnit().procedureDivision().procedureDivisionBody().paragraphs().paragraph();    
+               
+        
+        for(ParagraphContext s : tree){
+        
+            	System.out.println(s.paragraphName().getText());          	
+        	
+        }
+        
+//        List<DataDescriptionEntryContext> tree = parser.programUnit().dataDivision().dataDivisionSection(0).workingStorageSection().dataDescriptionEntry();
+//
+//        for (DataDescriptionEntryContext s : tree) {  
+//        	
+//      		if (s.dataDescriptionEntryFormat1().dataName() != null){
+//      			System.out.println("Name : " + s.dataDescriptionEntryFormat1().dataName().getText());    			
+//      		}   
+//      		
+//      		if (s.dataDescriptionEntryFormat1().dataPictureClause(0) != null){
+//      			System.out.println("Picture : " + s.dataDescriptionEntryFormat1().dataPictureClause(0).getText());
+//      		}
+//      		
+//      		if (s.dataDescriptionEntryFormat1().dataValueClause(0) != null){
+//      			System.out.println("Value : " + s.dataDescriptionEntryFormat1().dataValueClause(0).getText());
+//      		}     		
+//		} 
+              
+     
+        
+        
+ 
+       
+//      ParseTree tree1 = parser.endProgramStatement();
+//        
+//        System.out.println("test"); // begin parsing at rule r
+//        System.out.println(tree1.toStringTree(parser)); // print LISP-style tree
+//        String rp = tree1.toStringTree(parser);
+//        rp = rp.replace("\n","");
+//        System.out.println("anchofo rp : " + rp);
+//        String[] découpé = rp.split("       ");
+//        
+//        for (String s : découpé) {  
+//   
+//        		System.out.println("anchofo : " + s);	
+//
+//		}      
+                        
+    }    
+}
